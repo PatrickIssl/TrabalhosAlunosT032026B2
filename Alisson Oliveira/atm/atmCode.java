@@ -1,0 +1,113 @@
+package atm;
+
+// import java.util.Random;
+import java.util.Scanner;
+import java.text.NumberFormat;
+import java.util.Locale;
+
+public class atmCode {
+   static Scanner scan = new Scanner(System.in);
+   static Locale brasil = Locale.of("pt", "BR");
+   static NumberFormat moeda = NumberFormat.getCurrencyInstance(brasil);
+
+   static double saldo = 0;
+   static int option = 0;
+   static double valorDep = 0;
+   static double valorSaq = 0;
+   static double limitToday = 500.00;
+   static double totalToday = 0;
+
+   public static void main(String[] args) {
+      if (checkPass()) {
+         atmSystem();
+      } else {
+         System.out.println("\nAccess Blocked!\n");
+      }
+      scan.close();
+   }
+   public static boolean checkPass() {
+      boolean access = false;
+      int pass = 777;
+      int passTry;
+      int attempts = 0;
+      int attemptsLeft = 3;
+
+      while (attempts < 3 && !access ) {
+         System.out.println("\nSenha? ");
+         passTry = scan.nextInt();
+         scan.nextLine();
+         if (passTry == pass) {
+            System.out.println("\nLogin OK!");
+            access = true;
+         } else {
+            System.out.println("\nSenha Incorreta! Try Again.");
+            attempts++;
+            attemptsLeft = attemptsLeft - 1;
+            System.out.println("Tentativas Restantes: " +attemptsLeft);
+         }
+      }
+      return access;
+   }
+   public static void atmSystem() {
+      while (option != 4) {
+         System.out.println("\n--- ATM ---");
+         System.out.println("Press 1 - Saldo");
+         System.out.println("Press 2 - Depositar");
+         System.out.println("Press 3 - Sacar");
+         System.out.println("Press 4 - Exit");
+         System.out.println("\nChoose Option: ");
+
+         option = scan.nextInt();
+         scan.nextLine();
+
+         if (option == 1) {
+            optionOne();
+         } else if (option == 2) {
+            optionTwo();
+         } else if (option == 3) {
+            optionThree();
+         } else if (option == 4) {
+            optionFour();
+         } else {
+            System.out.println("\nERRO - Choose Valid Option!");
+         }
+      }
+   }
+   public static void optionOne() {
+      System.out.println("\nATM - Saldo: " +moeda.format(saldo));
+   }
+   public static void optionTwo() {
+      System.out.println("\nATM - Deposito");
+      System.out.println("Valor: ");
+      valorDep = scan.nextDouble();
+      scan.nextLine();
+      if (valorDep > 0) {
+         saldo = saldo + valorDep;
+      } else {
+         System.out.println("\nERRO - Deposito deve ser maior que Zero!");
+      }
+   }
+   public static void optionThree() {
+      System.out.println("\nATM - Saque");
+      System.out.println("Valor: ");
+      valorSaq = scan.nextDouble();
+      scan.nextLine();
+      if (valorSaq > 0) {
+         if (valorSaq <= saldo) {
+            if (valorSaq + totalToday <= limitToday) {
+               saldo = saldo - valorSaq;
+               totalToday = totalToday + valorSaq;
+            } else {
+               System.out.println("\nERRO - Limite diario de saque excedido!");
+            }
+         } else {
+            System.out.println("\nERRO - Saldo Insuficiente!");
+         }
+      } else {
+         System.out.println("\nERRO - Saque deve ser maior que Zero!");
+      }
+   }
+   public static void optionFour() {
+      System.out.println("\nAte Mais!\n"); 
+   }
+}
