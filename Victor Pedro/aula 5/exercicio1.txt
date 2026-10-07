@@ -1,0 +1,54 @@
+import java.util.Arrays;
+import java.util.Iterator;
+
+public class exercicio01 {
+
+	public static void main(String[] args) {
+		double[] notas = { 10, 8.6, 9.2, 4.1, 6 };
+		double soma = 0;
+		double menor = notas[0];
+		double maior = notas[0];
+
+		for (int i = 0; i < notas.length; i++) {
+			soma += notas[i];
+		}
+		double media = soma / notas.length;
+		System.out.println("a media e: " + media);
+
+		for (int i = 0; i < notas.length; i++) {
+
+			if (notas[i] > media) {
+				
+			System.out.println("Notas maiores que a media: " + notas[i]);
+			}
+		
+		}
+
+		for ( int i = 0; i < notas.length; i++) {
+
+			if (notas[i] > maior) {
+
+				maior = notas[i];
+			}
+
+			if (notas[i] < menor) {
+
+				menor = notas[i];
+			}
+		}
+
+			System.out.println("a maior nota é: " + maior);
+			System.out.println("a menor nota é: " + menor);
+
+		}
+		}
+	
+
+
+
+		
+		
+	
+	
+
+
