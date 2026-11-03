@@ -1,0 +1,105 @@
+package AvaliacaoDois;
+
+import java.util.Scanner;
+
+
+public class AvaliacaoDois {
+
+	static Scanner scanner = new Scanner(System.in);
+	public static void main(String[] args) {
+		
+		calculadora();
+		scanner.close();
+	}
+		
+		public static void calculadora() {
+		int digito = 0;
+		double saldo = 0;
+		double deposito = 0;
+		double sacar = 0;
+		double valorsacar = 0;double saquediario=0;
+		double limitediario=500;
+		int tentativa=0;
+		int lmttentativa=3;
+		int senhaCorreta = 1234;
+		boolean acesso = false;
+		while ((tentativa < lmttentativa) && acesso == false) {
+			System.out.print("Digite sua senha (4 dígitos): ");
+            int senha = scanner.nextInt();
+            if (senha == senhaCorreta) {
+                System.out.println("Acesso liberado!\n");
+               acesso = true;
+            } else {
+            tentativa = tentativa + 1;
+            System.out.printf("Senha incorreta. Tentativas restantes: %d%n", 3 - tentativa);
+		}
+		}
+		if (acesso == true) {
+		while (digito != 4) {
+			System.out.println("Caixa eletronico\n");
+			System.out.println("\n");
+			System.out.println("Opcoes: \n");
+			System.out.println("Para Consultar saldo digite 1 \n");
+			System.out.println("Para Depositar dinheiro digite 2 \n");
+			System.out.println("Para Sacar dinheiro digite 3\n");
+			System.out.println("Para Sair digite 4\n");
+			System.out.println(": \n");
+
+			digito = scanner.nextInt();
+			if ( digito != 1 && digito != 2 && digito != 3 && digito != 4) {
+				System.out.println("Insira uma das opcoes validas acima!");
+			} else {
+			System.out.println("Voce inseriu \n" + digito);
+
+			if (digito == 1) {
+				System.out.println("resultado: \n");
+				System.out.printf("mostrar o saldo R$ %.2f%n", saldo);
+			} else if (digito == 2) {
+				System.out.println("adicionar saldo: \n");
+				deposito = scanner.nextDouble();
+				if (deposito <= 0) {
+
+					System.out.println("Valor incorreto insira um valor acima de 0\n");
+
+				} else {
+					saldo = saldo + deposito;
+					System.out.printf("Depósito realizado com sucesso! Saldo atual: R$ %.2f%n", saldo);
+				}
+			} else if (digito == 3) {
+	  
+					
+					System.out.print("Digite o valor para saque: R$ ");
+					sacar = scanner.nextDouble();
+					if (sacar <= 0) {
+						System.out.println("Erro valor invalido, o valor precisa ser maior que zero");
+						
+					} else if (sacar > saldo){
+						System.out.println("Saldo insuficiente");
+					} else if (saquediario + sacar > limitediario) {
+						System.out.printf("Erro: Limite diário excedido (Máximo R$ %.2f%n", limitediario);
+						System.out.printf("Limite restante R$ %.2f%n", limitediario - saquediario);
+					}  else {
+						saldo = saldo - sacar;
+						saquediario = saquediario + sacar;
+						System.out.printf("Saque realizado com sucesso!, Saldo atual %.2f%n", saldo);
+						
+						
+					
+	
+						}
+				} else if (digito == 4) {
+					System.out.println("Fim\n");
+				} //else {
+					//System.out.println("Opcao invalida! Digite uma opcao possivel (1,2,3 ou 4). ");
+				//}
+			
+
+		}
+		}
+	
+		} else {
+			System.out.println("Sistema bloquado para o usuario");
+		}
+		
+}
+}
