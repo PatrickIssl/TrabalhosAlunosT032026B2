@@ -25,7 +25,7 @@ public class Cofrinho {
     }
 
     public void retirar(double valor) {
-        if (valor <= this.saldo) {
+        if (valor <= this.saldo && valor > 0) {
             this.saldo -= valor;
 
         } else {
@@ -42,8 +42,8 @@ public class Cofrinho {
             System.out.println("Meta atingida!!!!");
         }
         else  {
-            double falta = this.metaEconomia -= this.saldo;
-            System.out.println("quanto falta: R$ "+this.metaEconomia);
+            double falta = this.metaEconomia - this.saldo;
+            System.out.println("quanto falta: R$ "+falta);
         }
     }
 

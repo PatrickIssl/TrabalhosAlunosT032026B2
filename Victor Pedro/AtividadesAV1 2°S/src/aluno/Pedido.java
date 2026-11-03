@@ -27,7 +27,7 @@ public class Pedido {
             System.out.println("Lanche adicionado " + quantidade);
 
         } else {
-            System.out.println("Pedido finalizado");
+            System.out.println("Pedido já foi finalizado");
         }
 
     }

@@ -14,12 +14,12 @@ public class Main {
         System.out.println("========== ATIVIDADE 1 – ESTACIONAMENTO ==========");
 
         Estacionamento veiculo = new Estacionamento("ABC-1234", "COROLLA");
-        veiculo.adicionarTempo(20);
+        veiculo.adicionarTempo(90);
         veiculo.calcularValor();
         veiculo.exibirResumo();
 
         Estacionamento veiculo1 = new Estacionamento("DEF-456", "Honda Civic");
-        veiculo1.adicionarTempo(10);
+        veiculo1.adicionarTempo(500);
         veiculo1.calcularValor();
         veiculo1.exibirResumo();
 
@@ -80,7 +80,7 @@ public class Main {
         } else if (time1.getPontos() < time2.getPontos()) {
             System.out.println(time2.getNome() + " esta na frente");
         } else {
-            System.out.println("o jogo esta em empate");
+            System.out.println("empate na classificação");
         }
 
 
@@ -90,14 +90,14 @@ public class Main {
 
         System.out.println("\n========== ATIVIDADE 4 – COFRINHO ==========");
 
-        Cofrinho meuCofrinho = new Cofrinho("Victor", 556.00);
+        Cofrinho meuCofrinho = new Cofrinho("Victor", 500.00);
 
         System.out.println("Cofrinho criado com sucesso");
         meuCofrinho.exibirSaldo();
 
         System.out.println("Deposito");
-        meuCofrinho.depositar(200.00);
-        meuCofrinho.depositar(356.00);
+        meuCofrinho.depositar(100.00);
+        meuCofrinho.depositar(100.00);
 
 
         meuCofrinho.exibirSaldo();
@@ -126,7 +126,10 @@ public class Main {
 
         System.out.println("Finalizando");
         meuPedido.finalizarPedido();
-        System.out.println("Pedido finalizado com sucesso!");
+        
+        System.out.println("Tentando adicionar lanche após finalizar o pedido");
+        meuPedido.adicionarLanche(1);
+        
 
 
     }
