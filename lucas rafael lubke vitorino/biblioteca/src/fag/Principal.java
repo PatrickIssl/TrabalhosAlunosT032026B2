@@ -35,7 +35,7 @@ public class Principal {
 	public static void validarEscolha(int escolhaUsuario) {
 		switch (escolhaUsuario) {
 		case 1:
-			cadastrarLivro();
+			cadastrarLvro();
 			break;
 		case 2:
 			visualizarLivros();
@@ -60,7 +60,7 @@ public class Principal {
 		}
 	}
 
-	// Lê um número inteiro do teclado sem quebrar o programa se digitarem texto.
+	
 	public static int lerInt() {
 		try {
 			return Integer.parseInt(scan.nextLine().trim());
@@ -69,8 +69,7 @@ public class Principal {
 		}
 	}
 
-	// Mostra a lista e pede para o usuário escolher um livro.
-	// Retorna a posição do livro na lista, ou -1 se for inválido.
+	
 	public static int escolherLivro(String mensagem) {
 		if (livros.isEmpty()) {
 			System.out.println("Nenhum livro cadastrado!");
@@ -89,7 +88,6 @@ public class Principal {
 	public static void cadastrarLivro() {
 		Livro livro = new Livro();
 
-		// pede o título
 		System.out.println("Digite o título do livro:");
 		String titulo = scan.nextLine().trim();
 		if (titulo.isEmpty()) {
@@ -97,7 +95,6 @@ public class Principal {
 			return;
 		}
 
-		// valida se já existe um livro com o mesmo título
 		for (Livro livroFor : livros) {
 			if (livroFor.getTitulo().equalsIgnoreCase(titulo)) {
 				System.out.println("Livro já cadastrado!");
@@ -106,7 +103,6 @@ public class Principal {
 		}
 		livro.setTitulo(titulo);
 
-		// pede o autor
 		System.out.println("Digite o autor:");
 		String autor = scan.nextLine().trim();
 		if (autor.isEmpty()) {
@@ -115,14 +111,12 @@ public class Principal {
 		}
 		livro.setAutor(autor);
 
-		// pede a quantidade de exemplares
 		System.out.println("Digite a quantidade de exemplares:");
 		int quantidade = lerInt();
 		if (quantidade <= 0) {
 			System.out.println("A quantidade tem que ser maior que zero!");
 			return;
 		}
-		// como é um livro novo, todos os exemplares começam disponíveis
 		livro = new Livro(livro.getTitulo(), livro.getAutor(), quantidade);
 
 		livros.add(livro);
@@ -151,7 +145,6 @@ public class Principal {
 		}
 		Livro livro = livros.get(escolha);
 
-		// não deixa apagar um livro que ainda está emprestado
 		if (livro.getQuantidadeEmprestada() > 0) {
 			System.out.println("Não é possível excluir: ainda há exemplares emprestados!");
 			return;
