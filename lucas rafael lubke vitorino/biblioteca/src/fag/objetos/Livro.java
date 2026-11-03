@@ -45,8 +45,6 @@ public class Livro {
 		return quantidadeTotal - quantidadeDisponivel;
 	}
 
-	// Altera o total de exemplares mantendo a quantidade emprestada.
-	// Retorna false se o novo total for menor que o número de livros emprestados.
 	public boolean setQuantidadeTotal(int novoTotal) {
 		int emprestados = getQuantidadeEmprestada();
 		if (novoTotal < emprestados) {
@@ -57,7 +55,6 @@ public class Livro {
 		return true;
 	}
 
-	// Empresta um exemplar, se houver algum disponível.
 	public boolean emprestar() {
 		if (quantidadeDisponivel <= 0) {
 			return false;
@@ -66,7 +63,6 @@ public class Livro {
 		return true;
 	}
 
-	// Devolve um exemplar, se houver algum emprestado.
 	public boolean devolver() {
 		if (quantidadeDisponivel >= quantidadeTotal) {
 			return false;
