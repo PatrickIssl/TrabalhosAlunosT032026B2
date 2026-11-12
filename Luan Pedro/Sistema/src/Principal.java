@@ -1,0 +1,167 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Principal {
+
+    static Scanner scan = new Scanner(System.in);
+    static List<Produto> produtos = new ArrayList<>();
+
+    public static void main(String[] args) {
+        mostrarMenu();
+    }
+
+    public static void mostrarMenu() {
+        int escolhaUsuario = 0;
+        do {
+            System.out.println("\n---------------Sistema Estoque---------------");
+            System.out.println("Selecione uma opção a seguir: ");
+            System.out.println("1 - Cadastrar Produto");
+            System.out.println("2 - Visualizar Estoque");
+            System.out.println("3 - Apagar produto");
+            System.out.println("4 - Alterar produto");
+            System.out.println("0 - Sair");
+            escolhaUsuario = scan.nextInt();
+            scan.nextLine();
+            validarEscolha(escolhaUsuario);
+        } while (escolhaUsuario != 0);
+    }
+
+    public static void validarEscolha(int escolhaUsuario) {
+        switch (escolhaUsuario) {
+            case 1:
+                cadastrarProduto();
+                break;
+            case 2:
+                visualizarProdutos();
+                break;
+            case 3:
+                apagarProduto();
+                break;
+            case 4:
+                alterarProduto();
+                break;
+            case 0:
+                System.out.println("Obrigado por utilizar o sistema!");
+                break;
+            default:
+                System.out.println("Digite uma opção válida!");
+        }
+    }
+
+    public static void cadastrarProduto() {
+        Produto produto = new Produto();
+
+        System.out.println("Digite o nome do produto:");
+        produto.setNome(scan.nextLine());
+
+        for (Produto produtoFor : produtos) {
+            if (produtoFor.getNome().equals(produto.getNome())) {
+                System.out.println("Produto ja cadastrado!");
+                return;
+            }
+        }
+
+        System.out.println("Digite o preço:");
+        produto.setValor(scan.nextDouble());
+        scan.nextLine();
+
+        if (produto.getValor() < 0) {
+            System.out.println("O valor do produto tem que ser maior que zero!");
+            return;
+        }
+
+        System.out.println("Digite a quantidade:");
+        produto.setEstoque(scan.nextInt());
+        scan.nextLine();
+
+        if (produto.getEstoque() < 0) {
+            System.out.println("O estoque do produto tem que ser maior que zero!");
+            return;
+        }
+
+        produtos.add(produto);
+        System.out.println("Produto adicionado com sucesso!");
+    }
+
+    public static void visualizarProdutos() {
+        System.out.println("\n---------------Lista produtos---------------");
+        for (int i = 0; i < produtos.size(); i++) {
+            Produto produto = produtos.get(i);
+            System.out.printf("%d - %s, valor: %.2f, estoque: %d\n", (i + 1), produto.getNome(), produto.getValor(), produto.getEstoque());
+        }
+    }
+
+    public static void apagarProduto() {
+        visualizarProdutos();
+        System.out.println("Selecione a opção que deseja Excluir: ");
+        int escolha = scan.nextInt() - 1;
+        scan.nextLine();
+
+        if (escolha >= produtos.size() || escolha < 0) {
+            System.out.println("Selecione um valor válido!");
+            return;
+        }
+
+        Produto produto = produtos.get(escolha);
+        System.out.println("Deseja confirmar a exclusão do produto: \n 1 - Sim \n 2 - Não");
+        System.out.printf("%s, valor: %.2f, estoque: %d\n", produto.getNome(), produto.getValor(), produto.getEstoque());
+
+        int confirmacao = scan.nextInt();
+        scan.nextLine();
+
+        if (confirmacao == 1) {
+            produtos.remove(escolha);
+            System.out.println("Exclusão realizada com sucesso!");
+        } else {
+            System.out.println("Produto não excluido!");
+        }
+    }
+
+    public static void alterarProduto() {
+        visualizarProdutos();
+        System.out.println("Selecione a opção que deseja alterar: ");
+        int escolha = scan.nextInt() - 1;
+        scan.nextLine();
+
+        if (escolha >= produtos.size() || escolha < 0) {
+            System.out.println("Selecione um valor válido!");
+            return;
+        }
+
+        Produto produto = produtos.get(escolha);
+        mostrarMenuAlterarProduto(produto);
+    }
+
+    public static void mostrarMenuAlterarProduto(Produto produto) {
+        int escolha = 0;
+        do {
+            System.out.println("Selecione a opção que deseja alterar: ");
+            System.out.println("1 - Nome");
+            System.out.println("2 - Preço");
+            System.out.println("3 - Quantidade");
+            System.out.println("0 - Sair");
+            escolha = scan.nextInt();
+            scan.nextLine();
+            alterarValor(produto, escolha);
+        } while (escolha != 0);
+    }
+
+    public static void alterarValor(Produto produto, int escolha) {
+        if (escolha == 1) {
+            System.out.println("Digite o novo nome: ");
+            produto.setNome(scan.nextLine());
+            System.out.println("Nome alterado com sucesso!");
+        } else if (escolha == 2) {
+            System.out.println("Digite o novo valor: ");
+            produto.setValor(scan.nextDouble());
+            scan.nextLine();
+            System.out.println("Valor alterado com sucesso!");
+        } else if (escolha == 3) {
+            System.out.println("Digite a nova quantidade: ");
+            produto.setEstoque(scan.nextInt());
+            scan.nextLine();
+            System.out.println("Quantidade alterada com sucesso!");
+        }
+    }
+}
